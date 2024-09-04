@@ -36,3 +36,8 @@ emf.close();
 ### JPQL과 SQL
 - JPQL은 엔티티 객체를 대상으로 쿼리한다. SQL은 데이터베이스 테이블을 대상으로 쿼리한다.
 - JPQL은 대소문자를 명확하게 구분한다.
+
+
+### 궁금한 것 
+- EntityManager는 왜 바로 생성하지 못하고 EntityManagerFactory를 거처야 하는 걸까?
+
