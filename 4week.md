@@ -19,7 +19,13 @@
 - **@Enumerated**: 열거형 타입을 매핑. `ORDINAL`(숫자) 또는 `STRING`(문자열)으로 저장.
 - **@Temporal**: 날짜 타입 매핑. `DATE`, `TIME`, `TIMESTAMP`로 구분.
 - **@Lob**: 큰 데이터 매핑. `BLOB` 또는 `CLOB` 타입으로 저장.
-- **@Transient**: 특정 필드를 매핑에서 제외.
+  - LOB: Large OBject
+  - 데이터베이스에서 사용하는 자료형의 일종, 무려 4기가나 저장할 수 있다....
+  - DB에서는 Long보다 Lob의 사용을 권장한다. Long과 달리 Lob은 Object 타입을 지원한다.
+  - Lob은 Lob만을 위한 세그먼트가 따로 있다. 칼럼에 데이터를 직접 넣지는 않고 칼럼에는 세그먼트의 location을 저장한다.
+  - [자세한 설명...](https://www.ibm.com/docs/ko/db2/11.5?topic=list-large-objects-lobs)
+  
+- **@Transient**: 특정 필드를 매핑에서 제외. 임시값을 저장하거나... 할 때 쓴다.
 
 ## 4. 데이터베이스 스키마 자동 생성
 - JPA는 애플리케이션 시작 시 엔티티 매핑 정보를 바탕으로 스키마를 자동으로 생성 가능.
