@@ -31,6 +31,7 @@
   - 필드 접근: 필드에 직접 접근한다. 필드 접근 권한이 private이어도 접근할 수 있다.
   - 프로퍼티 접근: 접근자 (Getter)를 사용해서 접근한다.
   - @Access를 설정하지 않으면 @Id의 위치를 기준으로 접근 방식이 설정된다.
+  - (Q) 필드 접근이 뭔데... [공부할 것](https://thorben-janssen.com/access-strategies-in-jpa-and-hibernate/#5_reasons_why_you_should_use_field-based_access)
 
 ## 4. 데이터베이스 스키마 자동 생성
 - JPA는 애플리케이션 시작 시 엔티티 매핑 정보를 바탕으로 스키마를 자동으로 생성 가능.
