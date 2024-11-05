@@ -36,3 +36,30 @@
 #### cf: 프록시 강제 초기화
 - JPA에는 프록시를 강제로 초기화할 수 있는 메소드가 따로 없다. (하이버네이트는 initialize()로 할 수 있음)
 - member.getName()처럼 프록시의 메소드를 직접 호출해서 초기화할 수 있다.
+
+## 8.2 즉시 로딩과 지연 로딩 
+### 8.2.1 즉시 로딩: 엔티티를 조회할 때 연관된 엔티티도 함께 즉시 조회한다.
+- 설정 방법: @ManyToOne(fetch= FetchType.**EAGER**)
+- 대부분의 JPA 구현체는 즉시 로딩할 때 조인 쿼리를 쓴다. 
+  - Member 엔티티를 조회하는 순간 MEMBER table과 TEAM table을 JOIN해서 Team 엔티티를 꺼내온다.
+  - 쿼리 한 번으로 해결할 수 있도록 최적화한 것임
+  - cf) 조인할 때는 OUTER JOIN을 쓴다. Team이 nullable할 수도 있기 때문. INNER JOIN이 성능과 최적화 면에서 더 유리함. @JoinColumn에 nullable = false (이 column이 not nullable하다고 알려줌) 을 설정하면 JPA에 INNER JOIN을 쓴다. 
+
+### 8.2.2 지연 로딩: 연관된 엔티티를 실제 사용할 때 조회한다.
+- 설정 방법: @ManyToOne(fetch= FetchType.**LAZY**)
+
+## 8.3 지연 로딩 활용
+### 8.3.1 컬렉션 래퍼 
+- 하이버네이트는 엔티티를 영속 상태로 만들 때 엔티티에 컬렉션이 있으면 원본 컬렉션을 하이버네이트 내장 컬렉션으로 변경함. → 요게 컬렉션 래퍼 
+- 컬렉션 래퍼는 컬렉션의 프록시처럼 동작한다.
+- 지연 로딩 - Member에 Orders (List<Order>)가 있을 때:
+  - member.getOrders() 한다고 해서 컬렉션이 초기화되지 않는다.
+  - member.getOrders().get(0)과 같이, 실제 order를 꺼낼 때 초기화한다.
+
+### 8.3.2 JPA 기본 Fetch 전략 
+**기본값** 
+- @ManyToOne, @OneToOne: 즉시 로딩
+- @OneToMany, @ManyToMany: 지연 로딩 
+- 아묻따 지연 로딩하기를 권장 → 개발이 어느 정도 되고 나서 꼭 필요할 때만 즉시 로딩을 쓰도록 최적화하면 된다. 
+
+## 8.4 영속성 전이: CASCADE 
