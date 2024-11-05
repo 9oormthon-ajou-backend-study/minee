@@ -63,3 +63,31 @@
 - 아묻따 지연 로딩하기를 권장 → 개발이 어느 정도 되고 나서 꼭 필요할 때만 즉시 로딩을 쓰도록 최적화하면 된다. 
 
 ## 8.4 영속성 전이: CASCADE 
+- 특정 엔티티를 영속 상태로 만들 때 연관된 엔티티도 함께 영속 상태로 만들가
+- 영속성 전이 (transitive persistence) → JPA는 CASCADE 옵션으로 요걸 할 수 있게 한다.
+- 매핑할 때 cascade = CascadeType.PERSIST 하면 된다. (''@OneToMany (cascade = CascadeType. ...''))
+
+### 8.4.1 영속성 전이: 저장 
+- cascade  = CascadeType.PERSIST
+  - 영속화할 때 연관된 엔티티도 함께 영속화된다.
+
+### 8.4.2 영속성 전이: 삭제 
+- cascade = cascadeType.REMOVE 
+  - 삭제할 때 연관된 엔티티들도 함께 삭제된다.
+  - 요거 안 걸면 참조 무결성이 침해될 수 있다. 
+
+### 8.4.3 그 외 
+- ALL, PERSIST, MERGE, REMOVE, REFRESH, DETACH
+- 다양한 게 있고 여러 개를 동시에 같이 쓸 수도 있다. 
+
+## 8.5 고아 객체 
+- 부모 엔티티와 연관관계가 끊어진 자식 엔티티를 자동으로 삭제 → 고아 객체 제거라 한다.
+- 매핑할 때 orphanRemoval = true 로 설정하면 된다.
+- 참조가 제거된 객체를 자동으로 삭제하는 기능 
+  - 여러 곳에서 참조하는 객체에 사용하면 안된다.
+  - 그래서 @OneToMany, @OneToOne에만 사용할 수 있다.
+
+## 8.6 영속성 전이 + 고아 객체, 생명주기
+- CascadeType.ALL과 orphanRemoval = true를 동시에 사용하면 부모 엔티티로 자식의 생명주기를 관리할 수 있게 된다.
+
+
